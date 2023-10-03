@@ -20,7 +20,7 @@ A bot that makes recommendations of places to travel using ChatGPT
 
 1. Create a `.env` file based on `local.env` and fill the variables
 
-2. Run `python src/main.py`
+2. Run `make run` (if you have it installed) or `python src/main.py`
 
 ## How to add new packages
 
