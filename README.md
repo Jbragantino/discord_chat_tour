@@ -8,13 +8,13 @@ A bot that makes recommendations of places to travel using ChatGPT
 
 ## Setup (on Windows)
 
-1. Run `pip install venv`
+1. Run `pip install virtualenv`
 
-2. Run `python -m venv /venv`
+2. Run `python -m venv ./venv`
 
-3. Run `./venv/Scripts/activate.bat`
+3. Run `.\venv\Scripts\activate`
 
-4. Run `pip install -r requirements.txt`
+4. Run `python -m pip install -r requirements.txt`
 
 ## How to run
 
@@ -26,4 +26,4 @@ A bot that makes recommendations of places to travel using ChatGPT
 
 1. Run `python -m pip install <package-name>`
 
-2. Run `pip freeze > requirements.txt`
+2. Run `python -m pip freeze > requirements.txt`
