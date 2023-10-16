@@ -1,7 +1,11 @@
 import discord
 from discord.ext import commands
+from rasa.core.agent import Agent
 
 class MyClient(discord.Client):
+    def create_agent(self):
+        self.agent = Agent.load("src/rasa_3x/models/20231016-181647-plain-capacity.tar.gz")
+
     async def on_ready(self):
         print('Logged on as', self.user)
 
@@ -9,11 +13,12 @@ class MyClient(discord.Client):
         # don't respond to ourselves
         if message.author == self.user:
             return
+        
+        output = await self.agent.handle_text(message.content)
 
         print(message.content)
 
-        if message.content == 'ping':
-            await message.channel.send('pong')
+        await message.channel.send(output[0]['text'])
 
 
 def create_bot() -> discord.Client:
@@ -21,6 +26,8 @@ def create_bot() -> discord.Client:
     intents.message_content = True
 
     client = MyClient(intents=intents)
+
+    client.create_agent()
 
     return client
     
