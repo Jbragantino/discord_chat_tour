@@ -1,0 +1,82 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: gepeto
+  examples: |
+    - history
+    - travel
+    - tourism
+    - restaurant
+    - place
+    - hotel
+    - hostel
+    - motel
+    - airbnb
+    - house
+    - dinner
+    - lunch
+    - breakfast
+    - pizzeria
+    - monument
+    - culture
+    - clubs
+    - pub
+    - party
+    - caffeteria
+    - bar
+    - drink
+    - food
+    - trip
+    - taxi
+    - uber
+    - cab
+    - bike
+    - bus
+    - subway
+    - train
+    - police
+    - safety
+    - hospital
+    - cheap
+    - price
+    - expensive
+    - guide
+    - location
+    - beach
+    - routes
+    - nature
+    - night life
+    - events
+    - concerts
+    - park
+    - downtown
+    - smoke
+    - drugs

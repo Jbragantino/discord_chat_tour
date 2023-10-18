@@ -162,4 +162,4 @@ cython_debug/
 # VSCode
 .vscode
 
-src/rasa_3x/.rasa
+rasa_3x/.rasa

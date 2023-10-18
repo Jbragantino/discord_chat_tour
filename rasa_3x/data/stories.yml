@@ -1,0 +1,12 @@
+version: "3.1"
+
+stories:
+
+- story: gpt path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: gepeto
+  - action: utter_gepeto
+  - intent: goodbye
+  - action: utter_goodbye

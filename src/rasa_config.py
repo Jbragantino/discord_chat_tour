@@ -7,7 +7,7 @@ from rasa.jupyter import chat
 nest_asyncio.apply()
 
 project = 'rasa_3x'
-create_initial_project(project)
+# create_initial_project(project)
 
 os.chdir(project)
 

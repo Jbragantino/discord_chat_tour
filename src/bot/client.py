@@ -4,7 +4,7 @@ from rasa.core.agent import Agent
 
 class MyClient(discord.Client):
     def create_agent(self):
-        self.agent = Agent.load("src/rasa_3x/models/20231016-181647-plain-capacity.tar.gz")
+        self.agent = Agent.load("rasa_3x/models/20231017-214025-complex-salmon.tar.gz")
 
     async def on_ready(self):
         print('Logged on as', self.user)
