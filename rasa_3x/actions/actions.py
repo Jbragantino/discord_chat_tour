@@ -31,7 +31,7 @@ base_prompt =  (
 class UtterGepeto(Action):
 
     def name(self) -> Text:
-        return "utter_gepeto"
+        return "gepeto"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -44,6 +44,8 @@ class UtterGepeto(Action):
             prompt=base_prompt+user_message,
             temperature=0.6,
         )
+
+        print(response)
 
         dispatcher.utter_message(text=response.choices[0].text)
 

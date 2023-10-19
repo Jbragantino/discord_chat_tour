@@ -4,7 +4,7 @@ rules:
 - rule: Answer using ChatGPT
   steps:
   - intent: gepeto
-  - action: utter_gepeto
+  - action: gepeto
 
 - rule: Ask the user to rephrase whenever they send a message with low NLU confidence
   steps:

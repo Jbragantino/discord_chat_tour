@@ -7,6 +7,6 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: gepeto
-  - action: utter_gepeto
+  - action: gepeto
   - intent: goodbye
   - action: utter_goodbye
