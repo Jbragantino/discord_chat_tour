@@ -1,10 +1,25 @@
 import discord
 from discord.ext import commands
 from rasa.core.agent import Agent
+import requests
+import json
+
+# URL do servidor de ação personalizada do Rasa
+rasa_action_endpoint = 'http://localhost:5055/webhook'
+
+base_prompt =  (
+    "You're a tour guide responsible for giving "
+    "recommendations of places to visit, restaurants, "
+    "historical facts, curiosities and much more."
+    "I am your guest. I may ask you questions about anything "
+    "related to travelling. Before I ask anything about a place, "
+    "you must know where I am (if I haven't already told you)."
+    "Here's my question:"
+)
 
 class MyClient(discord.Client):
     def create_agent(self):
-        self.agent = Agent.load("rasa_3x/models/20231017-214025-complex-salmon.tar.gz")
+        self.agent = Agent.load("rasa_3x/models/20231019-195318-auburn-genre.tar.gz")
 
     async def on_ready(self):
         print('Logged on as', self.user)
@@ -16,9 +31,30 @@ class MyClient(discord.Client):
         
         output = await self.agent.handle_text(message.content)
 
-        print(message.content)
+        
+        try:
+            await message.channel.send(output[0]['text'])
+        except:
+            data = {
+                    "next_action": "gepeto",  # Nome da ação personalizada
+                    "tracker": {
+                        "latest_message": {
+                            "text": base_prompt+message.content  # Sua mensagem de entrada
+                        },
+                        "sender_id": str(self.user)  # ID único do remetente
+                    }
+                }
+            
+            response = requests.post(rasa_action_endpoint, json=data)
 
-        await message.channel.send(output[0]['text'])
+            if response.status_code == 200:
+                response_data = response.json()
+                response_text = response_data["response"]
+                # A resposta da ação personalizada está em response_data
+                await message.channel.send(response_text)
+            else:
+                await message.channel.send(response.status_code)
+
 
 
 def create_bot() -> discord.Client:
