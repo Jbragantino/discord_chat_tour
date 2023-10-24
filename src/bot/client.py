@@ -1,11 +1,13 @@
 import discord
-from discord.ext import commands
 from rasa.core.agent import Agent
 from gpt.gepeto import generate_prompt
 
 class MyClient(discord.Client):
+
+    user_messages = {}
+
     def create_agent(self):
-        self.agent = Agent.load("rasa_3x/models/20231019-195318-auburn-genre.tar.gz")
+        self.agent = Agent.load("rasa_3x/models/20231023-214837-nuclear-puffin.tar.gz")
 
     async def on_ready(self):
         print('Logged on as', self.user)
@@ -20,8 +22,15 @@ class MyClient(discord.Client):
         try:
             await message.channel.send(output[0]['text'])
         except:
-            gpt_prompt = generate_prompt(message.content)
-            await message.channel.send(gpt_prompt)
+            await message.channel.send("I'm thinking...")
+            self.user_messages[message.author] = self.user_messages.get(message.author, [])
+            self.user_messages[message.author].append({
+                                                    "role": "user",
+                                                    "content": message.content
+                                                })
+            gpt_prompt = generate_prompt(self.user_messages[message.author])
+            self.user_messages[message.author].append(gpt_prompt)
+            await message.channel.send(gpt_prompt["content"])
 
 
 
@@ -34,24 +43,3 @@ def create_bot() -> discord.Client:
     client.create_agent()
 
     return client
-    
-
-    # bot = commands.Bot(command_prefix="!", intents=intents)
-
-    # @bot.event
-    # async def on_ready():
-    #     print(f"{bot.user.name} has connected to Discord!")
-
-    # @bot.command(name="history", help="Return a list of historical facts about a city")
-    # async def get_history(ctx: commands.Context, *city_name):
-    #     city = " ".join(city_name)
-    #     await ctx.send(f"It's history time about {city}")
-
-    # @bot.command(
-    #     name="restaurants", help="Returns a list of interesting restaurants in a city"
-    # )
-    # async def get_restaurants(ctx: commands.Context, *city_name):
-    #     city = " ".join(city_name)
-    #     await ctx.send(f"Here are some restaurants in {city}")
-
-    # return bot

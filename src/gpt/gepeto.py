@@ -4,22 +4,27 @@ import openai
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-base_prompt =  (
-    "You're a tour guide responsible for giving "
-    "recommendations of places to visit, restaurants, "
-    "historical facts, curiosities and much more."
-    "I am your guest. I may ask you questions about anything "
-    "related to travelling. Before I ask anything about a place, "
-    "you must know where I am (if I haven't already told you)."
-    "Here's my question:"
-)
+base_prompt =  [{
+    "role": "system",
+    "content": (
+        "You're a tour guide responsible for giving "
+        "recommendations of places to visit, restaurants, "
+        "historical facts, curiosities and much more."
+        "I am your guest. I may ask you questions about anything "
+        "related to travelling. Before I ask anything about a place, "
+        "you must know where I am (if I haven't already told you)."
+        "If you have any missing information, ask me before giving the full answer."
+        "If I ask something not related to travelling or historical places, you MUST ask me to rephrase."
+        "Here's my question:"
+    )
+}]
 
-def generate_prompt(user_message: str) -> str:
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=base_prompt+user_message,
-        temperature=0.6,
-        max_tokens=250
+def generate_prompt(user_messages: list[dict]) -> str:
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=base_prompt+user_messages,
+        temperature=1,
+        max_tokens=500
     )
 
-    return(response.choices[0].text)
+    return(response["choices"][0]["message"])

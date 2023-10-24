@@ -39,17 +39,18 @@ class UtterGepeto(Action):
         
         user_message = tracker.latest_message['text']
 
-        response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt=base_prompt+user_message,
-            temperature=0.6,
-            max_tokens=200
-        )
+        # response = openai.Completion.create(
+        #     model="text-davinci-003",
+        #     prompt=base_prompt+user_message,
+        #     temperature=0.6,
+        #     max_tokens=200
+        # )
 
-        print(response)
+        # print(response)
 
-        dispatcher.utter_message(text=response.choices[0].text)
+        # dispatcher.utter_message(text=response.choices[0].text)
 
-        return [{
-            "text": response.choices[0].text,
-        }]
+        # return [{
+        #     "text": response.choices[0].text,
+        # }]
+        return []
