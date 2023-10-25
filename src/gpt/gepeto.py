@@ -15,16 +15,17 @@ base_prompt =  [{
         "you must know where I am (if I haven't already told you)."
         "If you have any missing information, ask me before giving the full answer."
         "If I ask something not related to travelling or historical places, you MUST ask me to rephrase."
+        "Keep the question at a max of 1500 characters."
         "Here's my question:"
     )
 }]
 
 def generate_prompt(user_messages: list[dict]) -> str:
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-16k",
         messages=base_prompt+user_messages,
-        temperature=1,
-        max_tokens=500
+        temperature=0.7,
+        # max_tokens=500
     )
 
     return(response["choices"][0]["message"])

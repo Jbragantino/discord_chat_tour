@@ -30,7 +30,12 @@ class MyClient(discord.Client):
                                                 })
             gpt_prompt = generate_prompt(self.user_messages[message.author])
             self.user_messages[message.author].append(gpt_prompt)
-            await message.channel.send(gpt_prompt["content"])
+
+            if len(gpt_prompt["content"]) > 2000:
+                await message.channel.send(gpt_prompt["content"][:2000])
+                await message.channel.send(gpt_prompt["content"][2000:])
+            else:
+                await message.channel.send(gpt_prompt["content"])
 
 
 
